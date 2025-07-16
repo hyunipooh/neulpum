@@ -252,7 +252,7 @@ h3 {
       font-size: 1.2em;
     }
     .profile-section p, .profile-section li {
-      font-size: 1.4em;
+      font-size: 1.12em;
     }
 }
 @media screen and (max-width: 480px) {
@@ -260,32 +260,32 @@ h3 {
         padding: 0.8rem;
     }
     h2 {
-        font-size: 1.6rem;
+        font-size: 1.28rem;
     }
     h3 {
-        font-size: 1.4rem;
+        font-size: 1.12rem;
     }
     p, li, a, button, input, label, span, div {
-        font-size: 1.4rem;
+        font-size: 1.12rem;
     }
     .tab-button {
         width: 100%;
         min-width: 0;
-        font-size: 1.8rem;
+        font-size: 1.44rem;
         padding: 1.5rem 0;
     }
     .card h3,
     .card p,
     .card li,
     .card span {
-        font-size: 1.2rem;
+        font-size: 0.96rem;
     }
 }
 
 /* ✅ 작은 모바일 화면에서 메뉴 버튼 크기 조정 */
 @media screen and (max-width: 480px) {
     .hamburger {
-        font-size: 1.4rem;
+        font-size: 1.12rem;
         padding: 0.8rem;
     }
     
@@ -299,28 +299,28 @@ h3 {
 /* ✅ 모바일 반응형 스타일 */
 @media screen and (max-width: 1024px) {
     html {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     body {
-        font-size: 1.6rem;
+        font-size: 1.28rem;
         line-height: 2.0;
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     h2 {
-        font-size: 2.3rem;
+        font-size: 1.84rem;
     }
 
     h3 {
-        font-size: 1.8rem;
+        font-size: 1.44rem;
     }
 
     p, li, a, button, input, label, span, div {
-        font-size: 1.6rem;
+        font-size: 1.28rem;
     }
 
     .summary-cards {
@@ -341,30 +341,32 @@ h3 {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem;
+        padding: 0.56rem;
     }
 
     .logo {
-        text-align: left;
+        text-align: right;
         width: auto;
         margin: 0;
         display: block;
+        order: 2;
     }
 
     .logo img {
-        height: 85px;
+        height: 48px;
         max-width: 85%;
-        min-height: 70px;
+        min-height: 40px;
     }
 
     .hamburger {
         display: block;
-        font-size: 1.6rem;
+        font-size: 1.28rem;
         background: none;
         border: none;
         cursor: pointer;
         padding: 0.5rem;
         color: #008080;
+        order: 1;
     }
 
     .nav-links {
@@ -391,7 +393,7 @@ h3 {
     }
 
     .mobile-menu a {
-        font-size: 1.6rem;
+        font-size: 1.28rem;
         font-weight: bold;
         text-decoration: none;
         color: #333;
@@ -408,7 +410,7 @@ h3 {
     }
 
     .mobile-logo {
-        width: 200px;
+        width: 112px;
         max-width: 65%;
         height: auto;
     }
@@ -433,7 +435,7 @@ h3 {
     display: block !important;
     width: 48% !important;
     min-width: 140px !important;
-    font-size: 1.4rem !important;
+    font-size: 1.12rem !important;
     padding: 1.2rem 0 !important;
     margin-bottom: 10px !important;
     box-sizing: border-box !important;
@@ -444,7 +446,7 @@ h3 {
     display: block !important;
     width: 100% !important;
     min-width: 0 !important;
-    font-size: 1.2rem !important;
+    font-size: 0.96rem !important;
     padding: 1rem 0 !important;
     margin-bottom: 8px !important;
     box-sizing: border-box !important;
@@ -460,6 +462,6 @@ h3 {
 
 @media screen and (max-width: 768px) {
   .profile-section * {
-    font-size: 1.4em !important;
+    font-size: 1.12em !important;
   }
 }

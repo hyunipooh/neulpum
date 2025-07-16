@@ -47,11 +47,6 @@
         line-height: 1.7;
         /* 모바일 터치 최적화 */
         -webkit-tap-highlight-color: transparent;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
       }
 
       /* 전역 폰트 크기 시스템 */
@@ -97,6 +92,11 @@
       button {
         font-size: 1rem;
         line-height: 1.4;
+        /* 버튼에서 텍스트 선택 방지 */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
       /* 태블릿 반응형 */
@@ -213,7 +213,7 @@
       /* 헤더 스타일 */
       .header {
         background: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         position: sticky;
         top: 0;
         z-index: 1000;
@@ -225,14 +225,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem 1.5rem;
+        padding: 0.8rem 1.5rem;
       }
 
       .logo {
         display: flex;
         align-items: center;
         text-decoration: none;
-        color: #008080;
+        color: #196A25;
         font-weight: bold;
         font-size: 1.5rem;
       }
@@ -240,6 +240,15 @@
       .logo img {
         height: 40px;
         margin-right: 0.5rem;
+      }
+      
+      /* 로고 반응형 설정 */
+      .mobile-logo-img {
+        display: none;
+      }
+      
+      .desktop-logo {
+        display: block;
       }
 
       .nav-links {
@@ -258,7 +267,7 @@
       }
 
       .nav-links a:hover {
-        color: #008080;
+        color: #196A25;
       }
 
       .hamburger {
@@ -267,7 +276,7 @@
         cursor: pointer;
         background: none;
         border: none;
-        padding: 0.5rem;
+        padding: 0.3rem;
       }
 
       .hamburger span {
@@ -306,7 +315,7 @@
       }
 
       .mobile-menu a:hover {
-        color: #008080;
+        color: #196A25;
       }
 
       .mobile-logo-wrapper {
@@ -333,30 +342,52 @@
         }
 
         .nav-container {
-          padding: 0.8rem 1rem;
+          padding: 0.4rem 1rem;
         }
 
         .logo {
-          font-size: 1.3rem;
+          font-size: 1.1rem;
         }
 
         .logo img {
-          height: 35px;
+          height: 28px;
+        }
+        
+        /* 모바일에서 로고 변경 */
+        .desktop-logo {
+          display: none;
+        }
+        
+        .mobile-logo-img {
+          display: block;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 0.3rem;
         }
       }
 
       @media screen and (max-width: 480px) {
         .hamburger span {
-          width: 22px;
+          width: 20px;
           height: 2px;
         }
 
+        .nav-container {
+          padding: 0.3rem 0.8rem;
+        }
+
         .logo img {
-          height: 30px;
+          height: 24px;
+        }
+        
+        .mobile-logo-img {
+          height: 28px;
+          margin-right: 0.2rem;
         }
 
         .logo {
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
       }
 
@@ -394,16 +425,15 @@
           padding: 1.5rem 1rem;
         }
 
-        /* 모바일 헤더 색상 */
+        /* 모바일 헤더 최적화 */
         .header {
-          background: #008080 !important;
+          background: white !important;
         }
-        .header .logo,
-        .header .nav-links a {
-          color: #fff !important;
+        .header .logo {
+          color: #196A25 !important;
         }
         .header .logo img {
-          filter: brightness(0) invert(1);
+          filter: none;
         }
       }
     </style>
@@ -412,7 +442,8 @@
     <header class="header">
       <nav class="nav-container">
         <a href="/" class="logo">
-          <img src="{{ url_for('static', filename='images/logo-horizontal.png') }}" alt="늘품동물병원">
+          <img src="{{ url_for('static', filename='images/logo-horizontal.png') }}" alt="늘품동물병원" class="desktop-logo">
+          <img src="{{ url_for('static', filename='images/logo_only.jpg') }}" alt="늘품동물병원" class="mobile-logo-img">
         </a>
         <ul class="nav-links">
           <li><a href="/">홈</a></li>
