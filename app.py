@@ -10,7 +10,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # ✅ 카카오 맵 API 키 가져오기 (없으면 None)
-KAKAO_MAP_API_KEY = os.getenv("KAKAO_API_KEY")
+KAKAO_MAP_API_KEY = os.getenv("KAKAO_MAP_API_KEY")
 
 @app.route("/")
 @app.route("/index")
