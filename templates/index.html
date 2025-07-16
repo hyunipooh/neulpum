@@ -362,7 +362,7 @@
     "{{ url_for('static', filename='images/lobby2.jpg') }}",
     "{{ url_for('static', filename='images/cat waiting.jpg') }}",
     "{{ url_for('static', filename='images/consulting room.jpg') }}",
-"{{ url_for('static', filename='images/operating room.jpg') }}"
+    "{{ url_for('static', filename='images/operating room.jpg') }}"
   ];
   
   let currentImageIndex = 0;
@@ -379,6 +379,8 @@
   });
   
   function showImage(index) {
+    if (index < 0 || index >= images.length) return;
+    
     currentImageIndex = index;
     sliderImg.src = images[index];
     
@@ -443,6 +445,8 @@
   });
   
   function showSecondImage(index) {
+    if (index < 0 || index >= secondImages.length) return;
+    
     currentSecondImageIndex = index;
     secondSliderImg.src = secondImages[index];
     
