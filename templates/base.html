@@ -2,6 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>늘품동물병원</title>
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -44,6 +45,13 @@
         /* 기본 폰트 크기 설정 */
         font-size: 1.2rem;
         line-height: 1.7;
+        /* 모바일 터치 최적화 */
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
       /* 전역 폰트 크기 시스템 */
@@ -129,23 +137,25 @@
       /* 모바일 반응형 */
       @media screen and (max-width: 768px) {
         body {
-          font-size: 1.05rem; /* 모바일에서 기본 폰트 크기 유지 */
+          font-size: 16px; /* 모바일에서 표준 폰트 크기 */
+          -webkit-text-size-adjust: 100%;
+          -ms-text-size-adjust: 100%;
         }
 
         h1 {
-          font-size: 2rem;
+          font-size: 1.8rem;
         }
 
         h2 {
-          font-size: 1.6rem;
+          font-size: 1.5rem;
         }
 
         h3 {
-          font-size: 1.3rem;
+          font-size: 1.2rem;
         }
 
         h4 {
-          font-size: 1.1rem;
+          font-size: 1rem;
         }
 
         p {
@@ -161,26 +171,26 @@
         }
 
         main {
-          padding: 1.5rem 1rem;
+          padding: 1rem 0.8rem;
         }
       }
 
       /* 작은 모바일 화면 */
       @media screen and (max-width: 480px) {
         body {
-          font-size: 1.05rem; /* 작은 화면에서도 기본 폰트 크기 유지 */
+          font-size: 16px; /* 작은 화면에서도 표준 폰트 크기 */
         }
 
         h1 {
-          font-size: 1.8rem;
+          font-size: 1.6rem;
         }
 
         h2 {
-          font-size: 1.5rem;
+          font-size: 1.4rem;
         }
 
         h3 {
-          font-size: 1.2rem;
+          font-size: 1.1rem;
         }
 
         h4 {

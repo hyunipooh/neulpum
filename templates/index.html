@@ -55,7 +55,14 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
   .phone-icon {
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .phone-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: white;
   }
   .phone-number {
     font-size: 1.4rem;
@@ -79,6 +86,10 @@
     .phone-link {
       font-size: 1.1rem;
       padding: 0.7rem 1.2rem;
+    }
+    .phone-icon svg {
+      width: 1.3rem;
+      height: 1.3rem;
     }
     .phone-number {
       font-size: 1.2rem;
@@ -209,6 +220,14 @@
     gap: 1rem;
     margin: 2rem 0;
   }
+  
+  /* 모바일에서 2열로 변경 */
+  @media (max-width: 768px) {
+    .treatment-categories {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+  }
   .treatment-category {
     background: white;
     padding: 1.5rem;
@@ -229,6 +248,20 @@
     font-size: 0.9rem;
     color: #666;
     margin: 0;
+  }
+  
+  /* 모바일에서 카드 스타일 조정 */
+  @media (max-width: 768px) {
+    .treatment-category {
+      padding: 1rem;
+    }
+    .treatment-category h4 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .treatment-category p {
+      font-size: 0.8rem;
+    }
   }
 </style>
 {% endblock %}
@@ -302,7 +335,11 @@
   <div class="reservation">
     <h3 style="color: #196A25; margin-top: 3rem;">전화 문의</h3>
     <a href="tel:043-715-3130" class="phone-link">
-      <span class="phone-icon">📞</span>
+      <span class="phone-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+      </span>
       <span class="phone-number">043-715-3130</span>
     </a>
     <p style="margin-top:1rem; font-size:1.1rem; color:#666;">
