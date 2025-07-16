@@ -1,0 +1,59 @@
+/* 모바일에서 요소 순서 강제 변경 */
+@media screen and (max-width: 768px) {
+  /* PC용 진료 정보 숨김 */
+  .desktop-only {
+    display: none !important;
+  }
+  
+  /* 모바일용 요소 표시 */
+  .mobile-only {
+    display: block !important;
+  }
+  
+  /* 모바일용 진료 시간을 맨 위로 */
+  .treatment-hours-mobile {
+    order: 1 !important;
+  }
+  
+  /* 오시는 길을 두 번째로 */
+  .location {
+    order: 2 !important;
+  }
+  
+  /* 예약 안내들을 세 번째로 */
+  .reservation {
+    order: 3 !important;
+  }
+  
+  /* 모바일용 진료 과목을 맨 아래로 */
+  .treatment-subjects-mobile {
+    order: 4 !important;
+  }
+}
+
+/* 작은 모바일에서도 동일하게 적용 */
+@media screen and (max-width: 480px) {
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-only {
+    display: block !important;
+  }
+  
+  .treatment-hours-mobile {
+    order: 1 !important;
+  }
+  
+  .location {
+    order: 2 !important;
+  }
+  
+  .reservation {
+    order: 3 !important;
+  }
+  
+  .treatment-subjects-mobile {
+    order: 4 !important;
+  }
+} 

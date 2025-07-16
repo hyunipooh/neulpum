@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    background-color: #fcfdff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .card {
+    min-width: 280px;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+  .treatment-hours {
+    padding: 3rem 2rem;
+  }
+  .location, .reservation {
+    margin-bottom: 2rem;
+  }
+  .clinic-hours-bold {
+    font-weight: bold;
+    color: #196A25;
+    margin-top: 0.7em;
+  }
+  /* 전화번호 포인트 컬러 박스형 스타일 */
+  .phone-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 2rem;
+    background-color: #0f4a1a;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    justify-content: center;
+    margin: 1rem auto 0 auto;
+    width: fit-content;
+  }
+  .phone-link:hover {
+    background-color: #0a3a15;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .phone-icon {
+    font-size: 1.5rem;
+  }
+  .phone-number {
+    font-size: 1.4rem;
+  }
+  @media (min-width: 769px) {
+    .card {
+      min-width: 160px;
+      padding: 1rem 1.2rem;
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+      display: block;
+      padding: 1rem 0.8rem;
+    }
+    .card {
+      min-width: auto;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .phone-link {
+      font-size: 1.1rem;
+      padding: 0.7rem 1.2rem;
+    }
+    .phone-number {
+      font-size: 1.2rem;
+    }
+  }
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    text-align: center;
+  }
+  .popup-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  .greeting-slider {
+    width: 100%;
+    max-width: 900px;
+    margin: 0.7rem auto 1.2rem auto;
+    text-align: center;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    .greeting-slider {
+      max-width: 100%;
+      margin: 0.5rem 0 1rem 0;
+    }
+  }
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+  }
+  .slider-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #d0d7d7;
+    display: inline-block;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    outline: none;
+  }
+  .slider-dot.active {
+    background: #196A25;
+  }
+  .slider-btn {
+    background: #196A25;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .slider-btn:hover {
+    background: #13521e;
+  }
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    color: rgba(0, 0, 0, 0.5);
+    border: none;
+    font-size: 4.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    font-weight: bold;
+  }
+  .slider-arrow:hover {
+    color: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+  }
+  .slider-arrow.prev {
+    left: 10px;
+  }
+  .slider-arrow.next {
+    right: 10px;
+  }
+  .mobile-greeting-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    object-fit: cover;
+    background: #f4f4f4;
+  }
+  .treatment-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .treatment-category {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.3s ease;
+  }
+  .treatment-category:hover {
+    transform: translateY(-2px);
+  }
+  .treatment-category h4 {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  .treatment-category p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 style="color: #196A25;">늘품동물병원에 오신 것을 환영합니다</h1>
+  <p style="font-size:1.4rem; margin-bottom:0.5em;">반려동물에게 최선의 치료를 제공하기 위해 노력합니다.</p>
+  <p style="font-size:1.4rem; margin-top:0.5em;"></p>
+  <div class="greeting-slider">
+    <img id="greetingSliderImg"
+         src="{{ url_for('static', filename='images/logo.png') }}"
+         alt="늘품동물병원"
+         class="mobile-greeting-img">
+    <button class="slider-arrow prev" onclick="showPrevImage()">‹</button>
+    <button class="slider-arrow next" onclick="showNextImage()">›</button>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
+  <div class="card treatment-hours" style="margin-top: 3rem;">
+    <h3 style="color: #196A25; margin: 0 0 30px 0;">진료 시간</h3>
+    <p>월, 화, 목, 금요일 : 09:30 ~ 20:00</p>
+    <p>수, 토요일, 공휴일 : 09:30 ~ 18:00</p>
+    <p style="text-decoration: underline;">휴게시간 : 12:30 ~ 14:00</p>
+    <p class="clinic-hours-bold">매주 일요일 정기휴무</p>
+  </div>
+
+  <h3 style="text-align: center; margin: 3rem 0 2rem 0; color: #196A25;">진료과목</h3>
+  <div class="treatment-categories">
+    <div class="treatment-category">
+      <h4>순환기내과 / 내분비내과</h4>
+      <p>심장질환, 당뇨병, 갑상선 질환 등</p>
+    </div>
+    <div class="treatment-category">
+      <h4>피부과 / 외이도 질환</h4>
+      <p>알레르기, 피부염, 귀 질환 등</p>
+    </div>
+    <div class="treatment-category">
+      <h4>일반외과 / 정형외과</h4>
+      <p> 종괴제거수술, 관절질환 진단 등</p>
+    </div>
+    <div class="treatment-category">
+      <h4>건강검진</h4>
+      <p>정기검진, 종합검사 등</p>
+    </div>
+    <div class="treatment-category">
+      <h4>치과 / 스케일링</h4>
+      <p>치석제거, 치아 치료 등</p>
+    </div>
+    <div class="treatment-category">
+      <h4>예방접종 / 중성화수술</h4>
+      <p>백신접종, 중성화수술 등</p>
+    </div>
+  </div>
+
+  <div class="location">
+    <h3 style="color: #196A25; margin-top: 3rem;">오시는 길</h3>
+    <div class="main-info-text">
+      <p><strong>주소:</strong> 충북 청주시 서원구 1순환로 1059, THE STYLE 오피스텔 1층</p>
+      <p><strong>전화:</strong> 043-715-3130</p>
+    </div>
+    <div id="map" style="width:100%;height:400px;margin-top:1rem;"></div>
+  </div>
+
+  <div class="parking-guide card" style="margin-top: 2rem;">
+    <h3 style="margin: 0.8rem 0 2rem 0; color: #196A25;">주차안내</h3>
+    <p>THE STYLE 오피스텔 지하주차장을 이용하실 수 있습니다.<br>자세한 안내는 아래 버튼을 눌러 확인해주세요.</p>
+    <a href="/parking" class="phone-link" style="background:rgba(241, 196, 15, 0.8); color:#333; margin-top:1rem;">주차안내 자세히 보기</a>
+  </div>
+
+  <div class="reservation">
+    <h3 style="color: #196A25; margin-top: 3rem;">전화 문의</h3>
+    <a href="tel:043-715-3130" class="phone-link">
+      <span class="phone-icon">📞</span>
+      <span class="phone-number">043-715-3130</span>
+    </a>
+    <p style="margin-top:1rem; font-size:1.1rem; color:#666;">
+      진료 문의사항은 전화 부탁드립니다.<br>
+      환자 치료 중 전화를 받지 못할 경우, 회신 드리겠습니다.
+    </p>
+  </div>
+
+  <!-- 두 번째 사진 슬라이더 (가장 아래쪽) -->
+  <div class="greeting-slider" style="margin-top: 3rem;">
+    <img id="secondSliderImg"
+         src="{{ url_for('static', filename='images/album 1.jpg') }}"
+         alt="병원 앨범"
+         class="mobile-greeting-img">
+    <button class="slider-arrow prev" onclick="showPrevSecondImage()">‹</button>
+    <button class="slider-arrow next" onclick="showNextSecondImage()">›</button>
+    <div class="slider-dots" id="secondSliderDots"></div>
+  </div>
+  <p style="font-size:1.4rem; color:#196A25; font-weight:bold; margin-top:1rem; margin-bottom:2rem; text-align:center;">함께여서 행복한 당신의 일상, 그리고 늘품</p>
+</div>
+
+<!-- 카카오맵 API -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{ kakao_api_key }}"></script>
+<script>
+  var container = document.getElementById('map');
+  var options = {
+    center: new kakao.maps.LatLng(36.60665, 127.4844), // 늘품동물병원 정확한 좌표
+    level: 3
+  };
+  var map = new kakao.maps.Map(container, options);
+  
+  // 마커 추가
+  var marker = new kakao.maps.Marker({
+    position: new kakao.maps.LatLng(36.60665, 127.4844)
+  });
+  marker.setMap(map);
+  
+  // 마커 클릭 이벤트 추가
+  kakao.maps.event.addListener(marker, 'click', function() {
+    window.open('https://map.naver.com/p/entry/place/1115493002?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202507131958&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4844427&lat=36.6066468&c=15.00,0,0,0,dh', '_blank');
+  });
+  
+  // 인포윈도우 추가
+  var infowindow = new kakao.maps.InfoWindow({
+    content: '<div style="padding:5px;font-size:16px;font-weight:bold;min-width:120px;text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;늘품동물병원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>'
+  });
+  infowindow.open(map, marker);
+</script>
+
+<!-- 이미지 슬라이더 스크립트 -->
+<script>
+  const images = [
+    "{{ url_for('static', filename='images/logo.png') }}",
+    "{{ url_for('static', filename='images/front1.jpg') }}",
+    "{{ url_for('static', filename='images/front2.jpg') }}",
+    "{{ url_for('static', filename='images/lobby1.jpg') }}",
+    "{{ url_for('static', filename='images/lobby2.jpg') }}",
+    "{{ url_for('static', filename='images/cat waiting.jpg') }}",
+    "{{ url_for('static', filename='images/consulting room.jpg') }}",
+    "{{ url_for('static', filename='images/operating room.jpg') }}"
+  ];
+  
+  let currentImageIndex = 0;
+  const sliderImg = document.getElementById('greetingSliderImg');
+  const dotsContainer = document.getElementById('sliderDots');
+  
+  // 점들 생성
+  images.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.className = 'slider-dot';
+    if (index === 0) dot.classList.add('active');
+    dot.onclick = () => showImage(index);
+    dotsContainer.appendChild(dot);
+  });
+  
+  function showImage(index) {
+    currentImageIndex = index;
+    sliderImg.src = images[index];
+    
+    // 점들 업데이트
+    const dots = dotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    
+    // 수동 전환 시 자동 슬라이드 재시작
+    resetAutoSlide();
+  }
+  
+  function showPrevImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    showImage(currentImageIndex);
+  }
+  
+  function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    showImage(currentImageIndex);
+  }
+  
+  // 자동 슬라이드
+  let autoSlideInterval = setInterval(() => {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    showImage(currentImageIndex);
+  }, 5000);
+  
+  // 수동 전환 시 자동 슬라이드 재시작
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      showImage(currentImageIndex);
+    }, 5000);
+  }
+</script>
+
+<!-- 두 번째 슬라이더 스크립트 -->
+<script>
+  const secondImages = [
+    "{{ url_for('static', filename='images/album 1.jpg') }}",
+    "{{ url_for('static', filename='images/album 2.jpg') }}",
+    "{{ url_for('static', filename='images/album 3.jpg') }}",
+    "{{ url_for('static', filename='images/album 4.jpg') }}",
+    "{{ url_for('static', filename='images/album 5.jpg') }}",
+    "{{ url_for('static', filename='images/album 6.jpg') }}"
+  ];
+  
+  let currentSecondImageIndex = 0;
+  const secondSliderImg = document.getElementById('secondSliderImg');
+  const secondDotsContainer = document.getElementById('secondSliderDots');
+  
+  // 점들 생성
+  secondImages.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.className = 'slider-dot';
+    if (index === 0) dot.classList.add('active');
+    dot.onclick = () => showSecondImage(index);
+    secondDotsContainer.appendChild(dot);
+  });
+  
+  function showSecondImage(index) {
+    currentSecondImageIndex = index;
+    secondSliderImg.src = secondImages[index];
+    
+    // 점들 업데이트
+    const dots = secondDotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    
+    // 수동 전환 시 자동 슬라이드 재시작
+    resetSecondAutoSlide();
+  }
+  
+  function showPrevSecondImage() {
+    currentSecondImageIndex = (currentSecondImageIndex - 1 + secondImages.length) % secondImages.length;
+    showSecondImage(currentSecondImageIndex);
+  }
+  
+  function showNextSecondImage() {
+    currentSecondImageIndex = (currentSecondImageIndex + 1) % secondImages.length;
+    showSecondImage(currentSecondImageIndex);
+  }
+  
+  // 자동 슬라이드
+  let secondAutoSlideInterval = setInterval(() => {
+    currentSecondImageIndex = (currentSecondImageIndex + 1) % secondImages.length;
+    showSecondImage(currentSecondImageIndex);
+  }, 4000); // 첫 번째 슬라이더보다 빠르게
+  
+  // 수동 전환 시 자동 슬라이드 재시작
+  function resetSecondAutoSlide() {
+    clearInterval(secondAutoSlideInterval);
+    secondAutoSlideInterval = setInterval(() => {
+      currentSecondImageIndex = (currentSecondImageIndex + 1) % secondImages.length;
+      showSecondImage(currentSecondImageIndex);
+    }, 4000);
+  }
+</script>
+{% endblock %}

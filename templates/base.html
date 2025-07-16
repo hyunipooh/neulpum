@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>늘품동물병원</title>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-order.css') }}">
+    {% block styles %}{% endblock %}
+    <style>
+      /* 스크롤바를 항상 표시하여 레이아웃 시프트 방지 */
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+        overflow-y: scroll;
+      }
+      
+      /* Webkit 브라우저용 스크롤바 스타일 */
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 6px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'NanumSquareRound', sans-serif;
+        color: #333;
+        /* 레이아웃 시프트 방지를 위한 최소 높이 설정 */
+        min-height: 100vh;
+        /* 스크롤바 공간 확보 */
+        padding-right: 0;
+        /* 기본 폰트 크기 설정 */
+        font-size: 1.2rem;
+        line-height: 1.7;
+      }
+
+      /* 전역 폰트 크기 시스템 */
+      h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 1.3;
+        margin-bottom: 1.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1.4;
+        margin-bottom: 1.2rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+      }
+
+      h4 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        line-height: 1.4;
+        margin-bottom: 0.8rem;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+
+      a {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      button {
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+
+      /* 태블릿 반응형 */
+      @media screen and (max-width: 1024px) {
+        body {
+          font-size: 1.1rem;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+        }
+
+        h3 {
+          font-size: 1.4rem;
+        }
+
+        h4 {
+          font-size: 1.1rem;
+        }
+
+        p {
+          font-size: 0.95rem;
+        }
+
+        a {
+          font-size: 0.95rem;
+        }
+
+        button {
+          font-size: 0.95rem;
+        }
+      }
+
+      /* 모바일 반응형 */
+      @media screen and (max-width: 768px) {
+        body {
+          font-size: 1.05rem; /* 모바일에서 기본 폰트 크기 유지 */
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.6rem;
+        }
+
+        h3 {
+          font-size: 1.3rem;
+        }
+
+        h4 {
+          font-size: 1.1rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+
+        a {
+          font-size: 1rem;
+        }
+
+        button {
+          font-size: 1rem;
+        }
+
+        main {
+          padding: 1.5rem 1rem;
+        }
+      }
+
+      /* 작은 모바일 화면 */
+      @media screen and (max-width: 480px) {
+        body {
+          font-size: 1.05rem; /* 작은 화면에서도 기본 폰트 크기 유지 */
+        }
+
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        h3 {
+          font-size: 1.2rem;
+        }
+
+        h4 {
+          font-size: 1rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+
+        a {
+          font-size: 1rem;
+        }
+
+        button {
+          font-size: 1rem;
+        }
+      }
+
+      /* 헤더 스타일 */
+      .header {
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .nav-container {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #008080;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .logo img {
+        height: 40px;
+        margin-right: 0.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #008080;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: #333;
+        margin: 3px 0;
+        transition: 0.3s;
+      }
+
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 2000;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+
+      .mobile-menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .mobile-menu a:hover {
+        color: #008080;
+      }
+
+      .mobile-logo-wrapper {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+      }
+
+      .mobile-logo {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      /* 모바일 반응형 */
+      @media screen and (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .nav-container {
+          padding: 0.8rem 1rem;
+        }
+
+        .logo {
+          font-size: 1.3rem;
+        }
+
+        .logo img {
+          height: 35px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .hamburger span {
+          width: 22px;
+          height: 2px;
+        }
+
+        .logo img {
+          height: 30px;
+        }
+
+        .logo {
+          font-size: 1.2rem;
+        }
+      }
+
+      /* 메인 컨텐츠 */
+      main {
+        min-height: calc(100vh - 80px);
+        padding: 2rem 1.5rem;
+      }
+
+      /* 푸터 */
+      .footer {
+        background: #f8f8f8;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .footer-content {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .footer p {
+        margin: 0.5rem 0;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      @media screen and (max-width: 768px) {
+        main {
+          padding: 1.5rem 1rem;
+        }
+
+        .footer {
+          padding: 1.5rem 1rem;
+        }
+
+        /* 모바일 헤더 색상 */
+        .header {
+          background: #008080 !important;
+        }
+        .header .logo,
+        .header .nav-links a {
+          color: #fff !important;
+        }
+        .header .logo img {
+          filter: brightness(0) invert(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <a href="/" class="logo">
+          <img src="{{ url_for('static', filename='images/logo-horizontal.png') }}" alt="늘품동물병원">
+        </a>
+        <ul class="nav-links">
+          <li><a href="/">홈</a></li>
+          <li><a href="/parking">주차안내</a></li>
+        </ul>
+        <button class="hamburger" onclick="toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-logo-wrapper">
+        <a href="/" class="mobile-logo">늘품동물병원</a>
+      </div>
+      <a href="/" onclick="closeMobileMenu()">홈</a>
+      <a href="/parking" onclick="closeMobileMenu()">주차안내</a>
+    </div>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p><strong>늘품동물병원</strong> | 충북 청주시 서원구 1순환로 1059, THE STYLE 오피스텔 1층 | 전화: 043-715-3130 | 이메일: neulpum.ah@kakao.com</p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('active');
+      }
+
+      function closeMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.remove('active');
+      }
+
+      // 모바일 메뉴 외부 클릭 시 닫기
+      document.addEventListener('click', function(event) {
+        const menu = document.getElementById('mobileMenu');
+        const hamburger = document.querySelector('.hamburger');
+        
+        if (menu.classList.contains('active') && 
+            !menu.contains(event.target) && 
+            !hamburger.contains(event.target)) {
+          menu.classList.remove('active');
+        }
+      });
+    </script>
+  </body>
+</html>
