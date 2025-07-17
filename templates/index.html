@@ -217,6 +217,106 @@
   .slider-arrow.next {
     right: 10px;
   }
+  
+  /* PC와 모바일 줄바꿈 차이 */
+  .main-title {
+    word-break: keep-all;
+    line-height: 1.4;
+  }
+  
+  .subtitle {
+    word-break: keep-all;
+    line-height: 1.5;
+  }
+  
+  /* 모바일에서 줄바꿈 강제 적용 */
+  @media (max-width: 768px) {
+    .main-title {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-height: 1.6;
+    }
+    
+    .subtitle {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-height: 1.7;
+    }
+  }
+  
+  /* 작은 모바일 화면 (400px 이하) */
+  @media (max-width: 400px) {
+    .main-title {
+      font-size: 1.2em !important;
+      line-height: 1.8;
+    }
+    .subtitle {
+      font-size: 1em !important;
+      line-height: 2.0;
+    }
+  }
+  
+  /* 주차안내 텍스트 줄바꿈 */
+  .parking-text {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .parking-text {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-height: 1.8;
+    }
+  }
+  
+  /* 응급진료 가로 박스 스타일 */
+  .emergency-treatment {
+    background: white;
+    padding: 1em;
+    padding-top: 0.6em; /* 상단 여백만 줄임 */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    margin-top: 0.5em;
+    text-align: center;
+    grid-column: 1 / -1; /* 전체 너비 사용 */
+  }
+  
+  .emergency-treatment h4 {
+    color: #333;
+    margin-bottom: 0.3rem;
+    margin-top: 1.0em;  /* 0.5에서 1.0경 */
+    font-size: 1.1em;  /* 다른 진료과목과 동일 */
+    font-weight: bold;
+  }
+  
+  .emergency-treatment p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+  }
+  
+  /* 모바일에서 응급진료 박스 스타일 조정 */
+  @media (max-width: 768px) {
+    .emergency-treatment {
+      padding: 0.6rem;
+      padding-top: 0.4em;
+      margin-top: 0.5em;
+    }
+    
+    .emergency-treatment h4 {
+      font-size: 0.9em;  /* 다른 진료과목과 동일 */
+      margin-bottom: 0.2rem;
+      margin-top: 0.3em;
+    }
+    
+    .emergency-treatment p {
+      font-size: 1rem;
+    }
+  }
+  
   .mobile-greeting-img {
     display: block;
     width: 100%;
@@ -233,7 +333,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
   
   /* 모바일에서 2열로 변경 */
@@ -241,6 +341,7 @@
     .treatment-categories {
       grid-template-columns: repeat(2, 1fr);
       gap: 0.8rem;
+      margin:00.5rem0 /* 모바일에서 더 축소 */
     }
   }
   .treatment-category {
@@ -283,8 +384,8 @@
 
 {% block content %}
 <div class="container">
-  <h1 style="color: #196A25;">늘품동물병원에 오신 것을 환영합니다</h1>
-  <p style="font-size:1.4rem; margin-bottom:0.5em;">반려동물에게 최선의 치료를 제공하기 위해 노력합니다.</p>
+  <h1 style="color: #196A25;" class="main-title">늘품동물병원에 오신 것을 환영합니다</h1>
+  <p style="font-size:1.4rem; margin-bottom:0.5em;" class="subtitle">소중한 가족에게 최선의 치료를 제공하기 위해 노력합니다.</p>
   <p style="font-size:1.4rem; margin-top:0.5em;"></p>
   
   <style>
@@ -329,44 +430,51 @@
   </style>
   <div class="treatment-categories">
     <div class="treatment-category">
-      <h4>순환기내과 / 내분비내과</h4>
-      <p>심장질환, 당뇨병, 갑상선 질환 등</p>
+      <h4>순환기·내분비내과</h4>
+      <p>고혈압, 심장 질환, 쿠싱증후군, 애디슨병, 당뇨 등</p>
     </div>
     <div class="treatment-category">
-      <h4>피부과 / 외이도 질환</h4>
-      <p>알레르기, 피부염, 귀 질환 등</p>
+      <h4>일반외과·정형외과</h4>
+      <p>종괴제거수술, 관절질환 진단 등</p>
     </div>
     <div class="treatment-category">
-      <h4>일반외과 / 정형외과</h4>
-      <p> 종괴제거수술, 관절질환 진단 등</p>
+      <h4>피부과·외이도질환</h4>
+      <p> 가려움증, 아토피·알러지, 감염성 피부염 등 </p>
     </div>
     <div class="treatment-category">
       <h4>건강검진</h4>
       <p>정기검진, 종합검사 등</p>
     </div>
     <div class="treatment-category">
-      <h4>치과 / 스케일링</h4>
-      <p>치석제거, 치아 치료 등</p>
+      <h4>치과·스케일링</h4>
+      <p>치아 치료, 스케일링 등</p>
     </div>
     <div class="treatment-category">
-      <h4>예방접종 / 중성화수술</h4>
-      <p>백신접종, 중성화수술 등</p>
+      <h4>예방접종·중성화수술</h4>
+      <p>백신접종, 사상충예방, 중성화수술 등</p>
+    </div>
+    
+    <!-- 응급진료 가로 박스 -->
+    <div class="emergency-treatment">
+      <h4>응급진료 가능합니다</h4>
     </div>
   </div>
 
   <div class="location">
     <h3 style="color: #196A25; margin-top: 3rem;">오시는 길</h3>
     <div class="main-info-text">
-      <p><strong>주소:</strong> 충북 청주시 서원구 1순환로 1059, THE STYLE 오피스텔 1층</p>
-      <p><strong>전화:</strong> 043-715-3130</p>
+      <p><strong>충청북도 청주시 서원구 1순환로 1059<BR>(더스타일 오피스텔, 1층)</strong></p>
+        <P style="font-size: 0.95rem; color: #666; margin: 0.2rem 0;">지도위 마커를 클릭하시면 네이버 지도로 이동합니다.</P>
     </div>
     <div id="map" style="width:100%;height:400px;margin-top:1rem;"></div>
-  </div>
-
-  <div class="parking-guide card" style="margin-top: 2rem;">
-    <h3 style="margin: 0.8rem 0 2rem 0; color: #196A25;">주차안내</h3>
-    <p>THE STYLE 오피스텔 지하주차장을 이용하실 수 있습니다.<br>자세한 안내는 아래 버튼을 눌러 확인해주세요.</p>
-    <a href="/parking" class="phone-link" style="background:rgba(241, 196, 15, 0.8); color:#333; margin-top:1rem;">주차안내 자세히 보기</a>
+    
+    <!-- 지도 아래 위치 안내 멘트 -->
+    <div class="location-info" style="margin-top:1rem; text-align: center;">
+      <p style="font-size: 1rem; color: #666; margin: 0.3rem 0;"><strong>주변 건물/상호</strong></p>
+      <p style="font-size: 1rem; color: #666; margin: 0.3rem 0;">KT 충북본부 횡단보도 건너 위치</p>
+      <p style="font-size: 1rem; color: #666; margin: 0.3rem 0;">삼성전자서비스 청주센터 건너편 (대각선)</p>
+      <p style="font-size: 1rem; color: #666; margin: 0.3rem 0;">CU 편의점,마코 옆</p>
+    </div>
   </div>
 
   <div class="reservation">
@@ -381,8 +489,14 @@
     </a>
     <p style="margin-top:1rem; font-size:1.1rem; color:#666;">
       진료 문의사항은 전화 부탁드립니다.<br>
-      환자 치료 중 전화를 받지 못할 경우, 회신 드리겠습니다.
+      환자 치료 중 전화를 받지 못할 경우, 잠시 후 회신 드리도록 하겠습니다.
     </p>
+  </div>
+
+  <div class="parking-guide card" style="margin-top: 2rem;">
+    <h3 style="margin: 0.8rem 0 2rem 0; color: #196A25;">주차안내</h3>
+    <p class="parking-text"><strong>"여유로운 지하주차장 완비"</strong> <BR> 자세한 안내는 아래 버튼을 눌러 확인해주세요.</p>
+    <a href="/parking" class="phone-link" style="background:rgba(241, 196, 15, 0.8); color:#333; margin-top:1rem;">주차안내 자세히 보기</a>
   </div>
 
   <!-- 두 번째 사진 슬라이더 (가장 아래쪽) -->
