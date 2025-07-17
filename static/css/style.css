@@ -45,6 +45,9 @@ body {
     line-height: 1.7;
     /* 모바일 터치 최적화 */
     -webkit-tap-highlight-color: transparent;
+    /* 전역 단어 단위 줄바꿈 */
+    word-break: keep-all;
+    word-wrap: break-word;
 }
 
 /* 전역 폰트 크기 시스템 */
@@ -193,6 +196,11 @@ h3 {
     border: 1px solid #e0e0e0;
     padding: 2rem;
     margin-bottom: 2rem;
+}
+
+/* 주차안내 섹션 PC 폰트 크기 조정 */
+.parking-guide p {
+    font-size: 0.95rem;
 }
 
 /* 공통 제목 스타일 */
@@ -526,6 +534,16 @@ main {
     .header .logo img {
         filter: none;
     }
+
+    /* 진료시간 섹션 폰트 크기 조정 */
+    .treatment-hours p {
+        font-size: 0.95rem;
+    }
+
+    /* 주차안내 섹션 폰트 크기 조정 */
+    .parking-guide p {
+        font-size: 0.95rem;
+    }
 }
 
 /* 작은 모바일 화면 */
@@ -583,6 +601,16 @@ main {
 
     .logo {
         font-size: 1rem;
+    }
+
+    /* 진료시간 섹션 폰트 크기 조정 */
+    .treatment-hours p {
+        font-size: 0.9rem;
+    }
+
+    /* 주차안내 섹션 폰트 크기 조정 */
+    .parking-guide p {
+        font-size: 0.9rem;
     }
 }
 
