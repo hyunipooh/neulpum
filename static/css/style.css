@@ -272,10 +272,10 @@ h3 {
 .since-text {
     display: none;
     font-family: 'Playfair Display', serif;
-    font-style: normal;
+    font-style: italic;
     font-weight: 400;
     color: #196A25;
-    font-size: 0.9rem;
+    font-size: 0.99rem;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -587,7 +587,8 @@ main {
     /* Since 2022 텍스트 표시 */
     .since-text {
         display: block;
-        font-size: 0.98rem;
+        font-style: italic;
+        font-size: 1.078rem;
     }
 
     main {
@@ -698,7 +699,8 @@ main {
     /* Since 2022 텍스트 표시 */
     .since-text {
         display: block;
-        font-size: 0.92rem;
+        font-style: italic;
+        font-size: 1.012rem;
     }
 
     main {
@@ -792,7 +794,8 @@ main {
     /* Since 2022 텍스트 표시 */
     .since-text {
         display: block;
-        font-size: 0.86rem;
+        font-style: italic;
+        font-size: 0.946rem;
     }
 
     /* 진료시간 섹션 폰트 크기 조정 */
