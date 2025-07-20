@@ -446,8 +446,8 @@
       <p>혈액화학검사, 영상의학검사 등</p>
     </div>
     <div class="treatment-category">
-      <h4>치과·스케일링</h4>
-      <p>치아 치료, 스케일링 등</p>
+      <h4>구강질환·스케일링</h4>
+      <p>구내염, 치주질환, 스케일링 등</p>
     </div>
     <div class="treatment-category">
       <h4>예방의학·중성화수술</h4>
@@ -530,7 +530,8 @@
   
   // 마커 클릭 이벤트 추가
   kakao.maps.event.addListener(marker, 'click', function() {
-    window.open('https://map.naver.com/p/entry/place/1115493002?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202507131958&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4844427&lat=36.6066468&c=15.00,0,0,0,dh', '_blank');
+    // mode=web 파라미터로 모바일에서 브라우저로 강제 열기
+    window.open('https://map.naver.com/p/entry/place/1115493002?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202507131958&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4844427&lat=36.6066468&c=15.00,0,0,0,dh&mode=web', '_blank');
   });
   
   // 인포윈도우 추가
