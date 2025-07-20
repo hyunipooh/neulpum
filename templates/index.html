@@ -530,8 +530,8 @@
   
   // 마커 클릭 이벤트 추가
   kakao.maps.event.addListener(marker, 'click', function() {
-    // mode=web 파라미터로 모바일에서 브라우저로 강제 열기
-    window.open('https://map.naver.com/p/entry/place/1115493002?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202507131958&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4844427&lat=36.6066468&c=15.00,0,0,0,dh&mode=web', '_blank');
+    // svcName=map_pcv5 제거하여 앱 실행 방지
+    window.open('https://map.naver.com/p/entry/place/1115493002?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202507131958&locale=ko&searchType=place&lng=127.4844427&lat=36.6066468&c=15.00,0,0,0,dh&mode=web', '_blank');
   });
   
   // 인포윈도우 추가
