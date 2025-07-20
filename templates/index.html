@@ -530,8 +530,8 @@
   
   // 마커 클릭 이벤트 추가
   kakao.maps.event.addListener(marker, 'click', function() {
-    // from=map과 svcName=map_pcv5 제거하여 앱 실행 방지
-    window.open('https://map.naver.com/p/entry/place/1115493002?placePath=/home?entry=plt&fromPanelNum=1&additionalHeight=76&timestamp=202507131958&locale=ko&searchType=place&lng=127.4844427&lat=36.6066468&c=15.00,0,0,0,dh&mode=web', '_blank');
+    // 모바일 네이버 플레이스 URL 사용 (앱 실행 방지)
+    window.open('https://m.place.naver.com/place/1115493002/home?entry=pll', '_blank');
   });
   
   // 인포윈도우 추가
