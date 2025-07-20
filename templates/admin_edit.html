@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}공지사항 수정 - 늘품동물병원{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="edit-container" style="max-width: 800px; margin: 0 auto;">
+    <div class="edit-header" style="text-align: center; margin: 2rem 0;">
+      <h1 style="color: #196A25; font-size: 2.5rem; margin-bottom: 1rem;">공지사항 수정</h1>
+      <p style="color: #666; font-size: 1.1rem;">공지사항을 수정하고 이미지를 관리하세요</p>
+    </div>
+
+    <div class="edit-form" style="background: white; border-radius: 10px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="title" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold; font-size: 1.1rem;">제목</label>
+          <input type="text" id="title" name="title" required value="{{ notice.title }}"
+                 style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="content" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold; font-size: 1.1rem;">내용</label>
+          <textarea id="content" name="content" required rows="10"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box; resize: vertical; font-family: inherit;">{{ notice.content }}</textarea>
+        </div>
+
+        <!-- 기존 이미지 표시 -->
+        {% if notice.images %}
+          <div class="existing-images" style="margin-bottom: 2rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold; font-size: 1.1rem;">기존 이미지</label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+              {% for image in notice.images %}
+                <div class="image-item" style="position: relative; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                  <img src="{{ url_for('static', filename='uploads/' + image) }}" 
+                       alt="공지사항 이미지" 
+                       style="width: 100%; height: 350px; object-fit: contain; background: #f8f8f8;">
+                  <a href="{{ url_for('admin_delete_image', notice_id=notice.id, image_name=image) }}" 
+                     class="delete-image-btn" 
+                     style="position: absolute; top: 5px; right: 5px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 12px;"
+                     onclick="return confirm('이 이미지를 삭제하시겠습니까?')">
+                    ×
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="images" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold; font-size: 1.1rem;">새 이미지 추가</label>
+          <input type="file" id="images" name="images" multiple accept="image/*"
+                 style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box;">
+          <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">
+            여러 이미지를 선택할 수 있습니다. (PNG, JPG, JPEG, GIF, WebP)
+          </p>
+        </div>
+
+        <div class="form-actions" style="display: flex; gap: 1rem; justify-content: center;">
+          <button type="submit" class="submit-btn" 
+                  style="background: #196A25; color: white; padding: 0.75rem 2rem; border: none; border-radius: 25px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+            ✏️ 수정 완료
+          </button>
+          <a href="{{ url_for('admin_dashboard') }}" class="cancel-btn" 
+             style="background: #6c757d; color: white; padding: 0.75rem 2rem; text-decoration: none; border-radius: 25px; font-size: 1rem; font-weight: bold; transition: all 0.3s ease;">
+            ❌ 취소
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #196A25;
+    box-shadow: 0 0 0 2px rgba(25, 106, 37, 0.2);
+  }
+  
+  .submit-btn:hover {
+    background: #145a1f !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(25, 106, 37, 0.3);
+  }
+  
+  .cancel-btn:hover {
+    background: #5a6268 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+  }
+  
+  .delete-image-btn:hover {
+    background: #c82333 !important;
+  }
+  
+  .image-item:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
+  
+  @media (max-width: 768px) {
+    .edit-header h1 {
+      font-size: 2rem !important;
+    }
+    
+    .edit-form {
+      padding: 1.5rem !important;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .submit-btn,
+    .cancel-btn {
+      width: 100%;
+    }
+    
+    .existing-images {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    }
+  }
+</style>
+{% endblock %} 

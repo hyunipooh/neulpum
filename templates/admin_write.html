@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}공지사항 작성 - 늘품동물병원{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="write-container" style="max-width: 800px; margin: 0 auto;">
+    <div class="write-header" style="text-align: center; margin: 2rem 0;">
+      <h1 style="color: #196A25; font-size: 2.5rem; margin-bottom: 1rem;">새 공지사항 작성</h1>
+      <p style="color: #666; font-size: 1.1rem;">공지사항을 작성하고 이미지를 업로드하세요</p>
+    </div>
+
+    <div class="write-form" style="background: white; border-radius: 10px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="title" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold; font-size: 1.1rem;">제목</label>
+          <input type="text" id="title" name="title" required 
+                 style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box;"
+                 placeholder="공지사항 제목을 입력하세요">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="content" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold; font-size: 1.1rem;">내용</label>
+          <textarea id="content" name="content" required rows="10"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box; resize: vertical; font-family: inherit;"
+                    placeholder="공지사항 내용을 입력하세요"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="images" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: bold; font-size: 1.1rem;">이미지 업로드</label>
+          <input type="file" id="images" name="images" multiple accept="image/*"
+                 style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box;">
+          <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">
+            여러 이미지를 선택할 수 있습니다. (PNG, JPG, JPEG, GIF, WebP)
+          </p>
+        </div>
+
+        <div class="form-actions" style="display: flex; gap: 1rem; justify-content: center;">
+          <button type="submit" class="submit-btn" 
+                  style="background: #196A25; color: white; padding: 0.75rem 2rem; border: none; border-radius: 25px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+            📝 공지사항 등록
+          </button>
+          <a href="{{ url_for('admin_dashboard') }}" class="cancel-btn" 
+             style="background: #6c757d; color: white; padding: 0.75rem 2rem; text-decoration: none; border-radius: 25px; font-size: 1rem; font-weight: bold; transition: all 0.3s ease;">
+            ❌ 취소
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #196A25;
+    box-shadow: 0 0 0 2px rgba(25, 106, 37, 0.2);
+  }
+  
+  .submit-btn:hover {
+    background: #145a1f !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(25, 106, 37, 0.3);
+  }
+  
+  .cancel-btn:hover {
+    background: #5a6268 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    .write-header h1 {
+      font-size: 2rem !important;
+    }
+    
+    .write-form {
+      padding: 1.5rem !important;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .submit-btn,
+    .cancel-btn {
+      width: 100%;
+    }
+  }
+</style>
+{% endblock %} 

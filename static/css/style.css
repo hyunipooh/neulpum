@@ -257,6 +257,8 @@ h3 {
     z-index: 1000;
 }
 
+
+
 .nav-container {
     max-width: 900px;
     margin: 0 auto;
@@ -265,6 +267,8 @@ h3 {
     align-items: center;
     padding: 0.8rem 1.5rem;
 }
+
+
 
 .logo {
     display: flex;
@@ -335,9 +339,10 @@ h3 {
     background: rgba(0,0,0,0.9);
     z-index: 2000;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 2rem;
+    padding-top: 120px;
 }
 
 .mobile-menu.active {
@@ -442,10 +447,163 @@ main {
 
 
 
-/* 모바일 반응형 */
+/* 태블릿 반응형 */
+@media screen and (max-width: 1024px) {
+    body {
+        font-size: 1.1rem;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+
+    a {
+        font-size: 0.95rem;
+    }
+
+    button {
+        font-size: 0.95rem;
+    }
+
+    .summary-cards {
+        display: block !important;
+        text-align: center;
+    }
+
+    .summary-cards .card {
+        width: 100% !important;
+        margin-bottom: 2rem;
+    }
+
+    #map {
+        height: 350px !important;
+    }
+}
+
+/* 작은 모바일 반응형 (iPhone mini 등) */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 16px; /* 작은 모바일에서 표준 폰트 크기 */
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    a {
+        font-size: 1rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-container {
+        padding: 0.3rem 0.8rem;
+        flex-direction: row-reverse;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .logo img {
+        height: 24px;
+    }
+    
+    /* 작은 모바일에서 로고 변경 */
+    .desktop-logo {
+        display: none;
+    }
+    
+    .mobile-logo-img {
+        display: block;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 0.2rem;
+    }
+
+    main {
+        padding: 1.2rem 0.8rem;
+    }
+
+    .footer {
+        padding: 1.2rem 0.8rem;
+    }
+
+    /* 작은 모바일 헤더 최적화 */
+    .header {
+        background: white !important;
+    }
+    .header .logo {
+        color: #196A25 !important;
+    }
+    .header .logo img {
+        filter: none;
+    }
+
+    /* 진료시간 섹션 폰트 크기 조정 */
+    .treatment-hours p {
+        font-size: 0.9rem;
+    }
+
+    /* 주차안내 섹션 폰트 크기 조정 */
+    .parking-guide p {
+        font-size: 0.9rem;
+    }
+}
+
+/* 모바일 스타일 (iPhone Pro Max 등) */
 @media screen and (max-width: 768px) {
     body {
-        font-size: 16px; /* 모바일에서 표준 폰트 크기 */
+        font-size: 16px;
         -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
     }
@@ -546,8 +704,8 @@ main {
     }
 }
 
-/* 작은 모바일 화면 */
-@media screen and (max-width: 480px) {
+/* 초소형 모바일 화면 (구형 안드로이드 등) */
+@media screen and (max-width: 375px) {
     body {
         font-size: 16px; /* 작은 화면에서도 표준 폰트 크기 */
     }
@@ -602,6 +760,8 @@ main {
     .logo {
         font-size: 1rem;
     }
+    
+
 
     /* 진료시간 섹션 폰트 크기 조정 */
     .treatment-hours p {
@@ -611,55 +771,6 @@ main {
     /* 주차안내 섹션 폰트 크기 조정 */
     .parking-guide p {
         font-size: 0.9rem;
-    }
-}
-
-/* 태블릿 반응형 */
-@media screen and (max-width: 1024px) {
-    body {
-        font-size: 1.1rem;
-    }
-
-    h1 {
-        font-size: 2.2rem;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-    }
-
-    h3 {
-        font-size: 1.4rem;
-    }
-
-    h4 {
-        font-size: 1.1rem;
-    }
-
-    p {
-        font-size: 0.95rem;
-    }
-
-    a {
-        font-size: 0.95rem;
-    }
-
-    button {
-        font-size: 0.95rem;
-    }
-
-    .summary-cards {
-        display: block !important;
-        text-align: center;
-    }
-
-    .summary-cards .card {
-        width: 100% !important;
-        margin-bottom: 2rem;
-    }
-
-    #map {
-        height: 350px !important;
     }
 }
 
@@ -707,7 +818,7 @@ main {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 480px) {
   .profile-section * {
     font-size: 1.12em !important;
   }

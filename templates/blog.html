@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}블로그 - 늘품동물병원{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="blog-header" style="text-align: center; margin: 2rem 0;">
+    <h1 style="color: #196A25; font-size: 2.5rem; margin-bottom: 1rem;">블로그</h1>
+    <p style="color: #666; font-size: 1.1rem;">늘품동물병원의 일상과 반려동물 이야기를 확인하세요</p>
+  </div>
+
+  <div class="blog-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+    <!-- 블로그 소개 -->
+    <div class="blog-intro" style="background: white; border-radius: 10px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      <h2 style="color: #196A25; margin-bottom: 1rem; font-size: 1.5rem;">늘품동물병원 블로그</h2>
+      <p style="color: #333; line-height: 1.6; margin-bottom: 1.5rem;">
+        반려동물과 함께하는 건강한 일상을 위한<br>
+        다양한 정보와 병원의 소식을 블로그에서 확인하실 수 있습니다.
+      </p>
+      <p style="color: #666; font-size: 0.9rem;">
+        진료 사례, 반려동물 건강 정보, 병원 소식 등<br>
+        유용한 정보를 정기적으로 업데이트하고 있습니다.
+      </p>
+    </div>
+
+    <!-- 네이버 블로그 연결 버튼 -->
+    <div class="blog-link-section" style="margin: 3rem 0;">
+      <a href="https://blog.naver.com/neulpum-ah" target="_blank" class="blog-link" style="background: #03C75A; color: white; padding: 1.5rem 3rem; text-decoration: none; border-radius: 50px; display: inline-block; font-weight: bold; font-size: 1.2rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(3, 199, 90, 0.3);">
+        <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          네이버 블로그 바로가기
+        </span>
+      </a>
+    </div>
+
+    <!-- 블로그 미리보기 -->
+    <div class="blog-preview" style="background: white; border-radius: 10px; padding: 2rem; margin-top: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      <h3 style="color: #196A25; margin-bottom: 1rem;">최근 블로그 포스트</h3>
+      <div class="preview-items" style="text-align: left;">
+        <div class="preview-item" style="padding: 1rem; border-bottom: 1px solid #eee; margin-bottom: 1rem;">
+          <div style="color: #999; font-size: 0.9rem; margin-bottom: 0.5rem;">2024.01.15</div>
+          <h4 style="color: #333; margin: 0; font-size: 1.1rem;">반려동물 겨울철 건강 관리법</h4>
+        </div>
+        <div class="preview-item" style="padding: 1rem; border-bottom: 1px solid #eee; margin-bottom: 1rem;">
+          <div style="color: #999; font-size: 0.9rem; margin-bottom: 0.5rem;">2024.01.10</div>
+          <h4 style="color: #333; margin: 0; font-size: 1.1rem;">강아지 치아 관리의 중요성</h4>
+        </div>
+        <div class="preview-item" style="padding: 1rem;">
+          <div style="color: #999; font-size: 0.9rem; margin-bottom: 0.5rem;">2024.01.05</div>
+          <h4 style="color: #333; margin: 0; font-size: 1.1rem;">고양이 영양 관리 가이드</h4>
+        </div>
+      </div>
+      <p style="color: #666; font-size: 0.9rem; margin-top: 1rem; text-align: center;">
+        더 많은 이야기는 네이버 블로그에서 확인하세요!
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .blog-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(3, 199, 90, 0.4) !important;
+  }
+  
+  @media (max-width: 768px) {
+    .blog-header h1 {
+      font-size: 2rem !important;
+    }
+    
+    .blog-intro, .blog-preview {
+      padding: 1.5rem !important;
+    }
+    
+    .blog-link {
+      padding: 1rem 2rem !important;
+      font-size: 1rem !important;
+    }
+  }
+</style>
+{% endblock %} 

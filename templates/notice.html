@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}공지사항 - 늘품동물병원{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="notice-header" style="text-align: center; margin: 2rem 0;">
+    <h1 style="color: #196A25; font-size: 2.5rem; margin-bottom: 1rem;">공지사항</h1>
+    <p style="color: #666; font-size: 1.1rem;">늘품동물병원의 소식과 안내사항을 확인하세요</p>
+  </div>
+
+  <div class="notice-list" style="max-width: 800px; margin: 0 auto;">
+    {% if notices %}
+      {% for notice in notices %}
+        <div class="notice-item" style="background: white; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <div class="notice-date" style="color: #999; font-size: 0.9rem; margin-bottom: 0.5rem;">{{ notice.date }}</div>
+          <h3 style="color: #196A25; margin: 0 0 1rem 0; font-size: 1.3rem;">
+            <a href="{{ url_for('notice_detail', notice_id=notice.id) }}" style="text-decoration: none; color: inherit;">
+              {{ notice.title }}
+            </a>
+          </h3>
+          
+          <!-- 이미지가 있으면 이미지를 먼저 표시 -->
+          {% if notice.images %}
+            <div style="margin-bottom: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+              {% for image in notice.images[:2] %}
+                <img src="{{ url_for('static', filename='uploads/' + image) }}" 
+                     alt="공지사항 이미지" 
+                     style="width: 100%; height: 400px; object-fit: contain; border-radius: 8px; cursor: pointer; background: #f8f8f8;"
+                     onclick="openImageModal(this.src)">
+              {% endfor %}
+              {% if notice.images|length > 2 %}
+                <div style="width: 100%; height: 400px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2rem; border: 2px dashed #ddd;">
+                  +{{ notice.images|length - 2 }}장 더
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          <!-- 텍스트 내용 (줄바꿈 유지) -->
+          <div style="color: #333; line-height: 1.6; margin: 0; white-space: pre-line;">
+            {{ notice.content[:300] }}{% if notice.content|length > 300 %}...{% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="notice-item" style="background: white; border-radius: 10px; padding: 2rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <p style="color: #666; font-size: 1.1rem; margin: 0;">등록된 공지사항이 없습니다.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- 관리자 로그인 링크 (숨겨진 링크) -->
+  <div style="text-align: center; margin: 3rem 0;">
+    <a href="/admin/login" style="color: #999; text-decoration: none; font-size: 0.8rem;">관리자</a>
+  </div>
+</div>
+
+  <!-- 이미지 모달 -->
+  <div id="imageModal" style="display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);">
+    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+      <img id="modalImage" style="max-width: 90%; max-height: 90%; object-fit: contain;">
+      <span style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeImageModal()">&times;</span>
+    </div>
+  </div>
+
+  <script>
+  function openImageModal(src) {
+    document.getElementById('modalImage').src = src;
+    document.getElementById('imageModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeImageModal() {
+    document.getElementById('imageModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  // 모달 외부 클릭시 닫기
+  document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeImageModal();
+    }
+  });
+
+  // ESC 키로 모달 닫기
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeImageModal();
+    }
+  });
+  </script>
+
+  <style>
+    .notice-item:hover {
+      transform: translateY(-2px);
+      transition: transform 0.3s ease;
+    }
+    
+    @media (max-width: 768px) {
+      .notice-header h1 {
+        font-size: 2rem !important;
+      }
+      
+      .notice-item {
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+      }
+      
+      .notice-item h3 {
+        font-size: 1.1rem !important;
+      }
+      
+      .notice-item .notice-images {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+      }
+    }
+  </style>
+{% endblock %} 
