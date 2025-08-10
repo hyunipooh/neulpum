@@ -69,6 +69,33 @@
       font-size: 1.3rem !important;
     }
   }
+  
+  /* 슬라이더 버튼 위치 문제 해결 */
+  .parking-slider {
+    position: relative !important;
+  }
+  
+  .parking-slider .slider-arrow {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important;
+  }
+  
+  .parking-slider .slider-arrow.prev {
+    left: 10px !important;
+  }
+  
+  .parking-slider .slider-arrow.next {
+    right: 10px !important;
+  }
+  
+  /* 모바일에서 슬라이더 버튼 크기 조절 */
+  @media (max-width: 768px) {
+    .parking-slider .slider-arrow {
+      font-size: 3rem !important;
+    }
+  }
 </style>
 
 <div class="container">
@@ -90,10 +117,10 @@
                 <img id="parkingSliderImg" 
                      src="{{ url_for('static', filename='images/parking-location-2.jpg') }}" 
                      alt="주차장 위치 안내" 
-                     style="width: 100%; height: auto; border-radius: 10px; cursor: pointer;"
+                     style="width: 100%; height: auto; border-radius: 10px; cursor: pointer; display: block;"
                      onclick="openImagePopup(this.src, '주차장 입구 사진')">
-                <button class="slider-arrow prev" onclick="showPrevParkingImage()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: none; color: rgba(0, 0, 0, 0.5); border: none; font-size: 4.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-weight: bold;">‹</button>
-                <button class="slider-arrow next" onclick="showNextParkingImage()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: none; color: rgba(0, 0, 0, 0.5); border: none; font-size: 4.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-weight: bold;">›</button>
+                <button class="slider-arrow prev" onclick="showPrevParkingImage()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: none; color: rgba(0, 0, 0, 0.5); border: none; font-size: 4.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0; padding: 0;">‹</button>
+                <button class="slider-arrow next" onclick="showNextParkingImage()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: none; color: rgba(0, 0, 0, 0.5); border: none; font-size: 4.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0; padding: 0;">›</button>
                 <div class="slider-dots" id="parkingSliderDots" style="display: flex; justify-content: center; gap: 8px; margin-top: 15px;"></div>
             </div>
             <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: 0.25rem;">주차장 입구 사진</p>
