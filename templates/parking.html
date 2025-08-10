@@ -5,7 +5,135 @@
     <h1 style="color: #196A25;">주차안내</h1>
     
     <div class="parking-info">
-        <!-- 주차안내 내용이 들어갈 자리 -->
+        <p style="font-size:1.4rem; margin-bottom:0.5em;">본 건물(더스타일 오피스텔) 지하 1, 2층 - 여유로운 주차장 마련</p>
+        <img src="{{ url_for('static', filename='images/parking.jpg') }}" alt="주차장 안내" style="max-width: 100%; height: auto; margin-top: 1rem; border-radius: 10px;">
+    </div>
+    
+    <div class="parking-location" style="margin-top: 2rem;">
+        <h2 style="color: #196A25; margin-bottom: 1rem;">주차장 위치 안내</h2>
+        <p style="font-size:1.4rem; margin-bottom:0.5em;">더스타일 오피스텔 건물 뒤쪽 지하주차장 입구<br>(공언니 펫살롱 옆)</p>
+        <img src="{{ url_for('static', filename='images/parking location 1.jpg') }}" alt="주차장 위치 안내" style="max-width: 100%; height: auto; margin-top: 1rem; border-radius: 10px; cursor: pointer;" onclick="openImagePopup(this.src, '주차장 위치 안내')">
+        <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: 0.25rem;">주차장 약도</p>
+        
+        <div style="margin-top: 2rem;">
+            <div class="parking-slider" style="position: relative; max-width: 100%; margin: 0 auto;">
+                <img id="parkingSliderImg" 
+                     src="{{ url_for('static', filename='images/parking location 2.jpg') }}" 
+                     alt="주차장 위치 안내" 
+                     style="width: 100%; height: auto; border-radius: 10px; cursor: pointer;"
+                     onclick="openImagePopup(this.src, '주차장 상세 위치')">
+                <button class="slider-arrow prev" onclick="showPrevParkingImage()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(25, 106, 37, 0.8); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;">‹</button>
+                <button class="slider-arrow next" onclick="showNextParkingImage()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(25, 106, 37, 0.8); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;">›</button>
+                <div class="slider-dots" id="parkingSliderDots" style="display: flex; justify-content: center; gap: 8px; margin-top: 15px;"></div>
+            </div>
+            <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: 0.25rem;">주차장 입구 사진</p>
+        </div>
+
+        <div class="parking-entry-guide" style="margin-top: 2rem;">
+            <h2 style="color: #196A25; margin-bottom: 1rem;">주차장 진입방법 안내</h2>
+            <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem; color: #333; text-align: center;"><strong>진입 경로</strong></p>
+                <ul style="font-size: 1.2rem; color: #666; line-height: 1.6; margin: 0; padding-left: 0; list-style: none; text-align: center;">
+                    <li style="margin-bottom: 0.5rem;">• 더스타일 오피스텔 건물 뒤쪽으로 이동</li>
+                    <li style="margin-bottom: 0.5rem;">• 공언니 펫살롱 옆 지하주차장 입구 이용</li>
+                    <li style="margin-bottom: 0.5rem;">• <strong>중요! 우회전으로만 진입 가능</strong></li>
+                </ul>
+                
+                <div style="margin-top: 2rem;">
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-size: 1.1rem; margin-bottom: 1rem; color: #333; text-align: center;"><strong>진입경로 1</strong></p>
+                        <img src="{{ url_for('static', filename='images/parking-route 1.jpg') }}" alt="진입경로 1" style="width: 100%; height: auto; border-radius: 10px; cursor: pointer;" onclick="openImagePopup(this.src, '진입경로 1')">
+                    </div>
+                    
+                    <div>
+                        <p style="font-size: 1.1rem; margin-bottom: 1rem; color: #333; text-align: center;"><strong>진입경로 2</strong></p>
+                        <img src="{{ url_for('static', filename='images/parking-route 2.jpg') }}" alt="진입경로 2" style="width: 100%; height: auto; border-radius: 10px; cursor: pointer;" onclick="openImagePopup(this.src, '진입경로 2')">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- 이미지 팝업 모달 -->
+<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9);">
+    <span class="close" onclick="closeImageModal()" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+    <img class="modal-content" id="modalImage" style="margin: auto; display: block; max-width: 90%; max-height: 90%; margin-top: 5%;">
+    <div id="modalCaption" style="margin: auto; display: block; width: 80%; max-width: 700px; text-align: center; color: #ccc; padding: 10px 0; height: 150px;"></div>
+</div>
+
+<script>
+// 주차장 슬라이더 관련 변수
+const parkingImages = [
+    "{{ url_for('static', filename='images/parking location 2.jpg') }}",
+    "{{ url_for('static', filename='images/parking location 3.jpg') }}"
+];
+
+let currentParkingImageIndex = 0;
+const parkingSliderImg = document.getElementById('parkingSliderImg');
+const parkingDotsContainer = document.getElementById('parkingSliderDots');
+
+// 점들 생성
+parkingImages.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.className = 'slider-dot';
+    dot.style.cssText = 'width: 12px; height: 12px; border-radius: 50%; background: #d0d7d7; border: none; cursor: pointer; transition: background 0.2s;';
+    if (index === 0) dot.style.background = '#196A25';
+    dot.onclick = () => showParkingImage(index);
+    parkingDotsContainer.appendChild(dot);
+});
+
+function showParkingImage(index) {
+    if (index < 0 || index >= parkingImages.length) return;
+    
+    currentParkingImageIndex = index;
+    parkingSliderImg.src = parkingImages[index];
+    
+    // 점들 업데이트
+    const dots = parkingDotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach((dot, i) => {
+        dot.style.background = i === index ? '#196A25' : '#d0d7d7';
+    });
+}
+
+function showPrevParkingImage() {
+    currentParkingImageIndex = (currentParkingImageIndex - 1 + parkingImages.length) % parkingImages.length;
+    showParkingImage(currentParkingImageIndex);
+}
+
+function showNextParkingImage() {
+    currentParkingImageIndex = (currentParkingImageIndex + 1) % parkingImages.length;
+    showParkingImage(currentParkingImageIndex);
+}
+
+// 이미지 팝업 관련 함수들
+function openImagePopup(src, alt) {
+    var modal = document.getElementById("imageModal");
+    var modalImg = document.getElementById("modalImage");
+    var captionText = document.getElementById("modalCaption");
+    
+    modal.style.display = "block";
+    modalImg.src = src;
+    captionText.innerHTML = alt;
+}
+
+function closeImageModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
+
+// 모달 외부 클릭 시 닫기
+window.onclick = function(event) {
+    var modal = document.getElementById("imageModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// ESC 키로 모달 닫기
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        document.getElementById("imageModal").style.display = "none";
+    }
+});
+</script>
 {% endblock %} 
