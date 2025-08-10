@@ -1,6 +1,76 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+  /* 모바일 환경 폰트 크기 조절 */
+  @media (max-width: 768px) {
+    .parking-info p[style*="font-size:1.4rem"] {
+      font-size: 1.1rem !important;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+    
+    .parking-location p[style*="font-size:1.4rem"] {
+      font-size: 1.1rem !important;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+    
+    .parking-entry-guide p[style*="font-size: 1.1rem"] {
+      font-size: 1rem !important;
+      line-height: 1.4;
+    }
+    
+    .parking-entry-guide ul[style*="font-size: 1.2rem"] {
+      font-size: 1rem !important;
+      line-height: 1.5;
+    }
+    
+    .parking-entry-guide li {
+      margin-bottom: 0.4rem !important;
+    }
+    
+    h1 {
+      font-size: 1.8rem !important;
+    }
+    
+    h2 {
+      font-size: 1.4rem !important;
+    }
+  }
+  
+  /* 작은 모바일 화면 (400px 이하) */
+  @media (max-width: 400px) {
+    .parking-info p[style*="font-size:1.4rem"] {
+      font-size: 1rem !important;
+      line-height: 1.6;
+    }
+    
+    .parking-location p[style*="font-size:1.4rem"] {
+      font-size: 1rem !important;
+      line-height: 1.6;
+    }
+    
+    .parking-entry-guide p[style*="font-size: 1.1rem"] {
+      font-size: 0.9rem !important;
+      line-height: 1.5;
+    }
+    
+    .parking-entry-guide ul[style*="font-size: 1.2rem"] {
+      font-size: 0.9rem !important;
+      line-height: 1.6;
+    }
+    
+    h1 {
+      font-size: 1.6rem !important;
+    }
+    
+    h2 {
+      font-size: 1.3rem !important;
+    }
+  }
+</style>
+
 <div class="container">
     <h1 style="color: #196A25;">주차안내</h1>
     
@@ -12,18 +82,18 @@
     <div class="parking-location" style="margin-top: 2rem;">
         <h2 style="color: #196A25; margin-bottom: 1rem;">주차장 위치 안내</h2>
         <p style="font-size:1.4rem; margin-bottom:0.5em;">더스타일 오피스텔 건물 뒤쪽 지하주차장 입구<br>(공언니 펫살롱 옆)</p>
-        <img src="{{ url_for('static', filename='images/parking location 1.jpg') }}" alt="주차장 위치 안내" style="max-width: 100%; height: auto; margin-top: 1rem; border-radius: 10px; cursor: pointer;" onclick="openImagePopup(this.src, '주차장 위치 안내')">
+        <img src="{{ url_for('static', filename='images/parking-location-1.jpg') }}" alt="주차장 위치 안내" style="max-width: 100%; height: auto; margin-top: 1rem; border-radius: 10px; cursor: pointer;" onclick="openImagePopup(this.src, '주차장 위치 안내')">
         <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: 0.25rem;">주차장 약도</p>
         
         <div style="margin-top: 2rem;">
             <div class="parking-slider" style="position: relative; max-width: 100%; margin: 0 auto;">
                 <img id="parkingSliderImg" 
-                     src="{{ url_for('static', filename='images/parking location 2.jpg') }}" 
+                     src="{{ url_for('static', filename='images/parking-location-2.jpg') }}" 
                      alt="주차장 위치 안내" 
                      style="width: 100%; height: auto; border-radius: 10px; cursor: pointer;"
-                     onclick="openImagePopup(this.src, '주차장 상세 위치')">
-                <button class="slider-arrow prev" onclick="showPrevParkingImage()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(25, 106, 37, 0.8); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;">‹</button>
-                <button class="slider-arrow next" onclick="showNextParkingImage()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(25, 106, 37, 0.8); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;">›</button>
+                     onclick="openImagePopup(this.src, '주차장 입구 사진')">
+                <button class="slider-arrow prev" onclick="showPrevParkingImage()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: none; color: rgba(0, 0, 0, 0.5); border: none; font-size: 4.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-weight: bold;">‹</button>
+                <button class="slider-arrow next" onclick="showNextParkingImage()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: none; color: rgba(0, 0, 0, 0.5); border: none; font-size: 4.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-weight: bold;">›</button>
                 <div class="slider-dots" id="parkingSliderDots" style="display: flex; justify-content: center; gap: 8px; margin-top: 15px;"></div>
             </div>
             <p style="font-size: 0.9rem; color: #666; text-align: center; margin-top: 0.25rem;">주차장 입구 사진</p>
@@ -57,16 +127,16 @@
 
 <!-- 이미지 팝업 모달 -->
 <div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9);">
-    <span class="close" onclick="closeImageModal()" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
     <img class="modal-content" id="modalImage" style="margin: auto; display: block; max-width: 90%; max-height: 90%; margin-top: 5%;">
     <div id="modalCaption" style="margin: auto; display: block; width: 80%; max-width: 700px; text-align: center; color: #ccc; padding: 10px 0; height: 150px;"></div>
+    <span class="close" onclick="closeImageModal()" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 1001; background: rgba(0,0,0,0.5); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">&times;</span>
 </div>
 
 <script>
 // 주차장 슬라이더 관련 변수
 const parkingImages = [
-    "{{ url_for('static', filename='images/parking location 2.jpg') }}",
-    "{{ url_for('static', filename='images/parking location 3.jpg') }}"
+    "{{ url_for('static', filename='images/parking-location-2.jpg') }}",
+    "{{ url_for('static', filename='images/parking-location-3.jpg') }}"
 ];
 
 let currentParkingImageIndex = 0;
