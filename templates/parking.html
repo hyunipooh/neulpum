@@ -73,18 +73,41 @@ let currentParkingImageIndex = 0;
 const parkingSliderImg = document.getElementById('parkingSliderImg');
 const parkingDotsContainer = document.getElementById('parkingSliderDots');
 
-// 점들 생성
-parkingImages.forEach((_, index) => {
-    const dot = document.createElement('button');
-    dot.className = 'slider-dot';
-    dot.style.cssText = 'width: 12px; height: 12px; border-radius: 50%; background: #d0d7d7; border: none; cursor: pointer; transition: background 0.2s;';
-    if (index === 0) dot.style.background = '#196A25';
-    dot.onclick = () => showParkingImage(index);
-    parkingDotsContainer.appendChild(dot);
+// 이미지가 로드되었는지 확인
+function preloadImages() {
+    parkingImages.forEach((src, index) => {
+        const img = new Image();
+        img.onload = function() {
+            console.log(`Image ${index + 1} loaded successfully:`, src);
+        };
+        img.onerror = function() {
+            console.error(`Failed to load image ${index + 1}:`, src);
+        };
+        img.src = src;
+    });
+}
+
+// 페이지 로드 시 이미지 미리 로드
+document.addEventListener('DOMContentLoaded', function() {
+    preloadImages();
+    
+    // 점들 생성
+    parkingImages.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'slider-dot';
+        dot.style.cssText = 'width: 12px; height: 12px; border-radius: 50%; background: #d0d7d7; border: none; cursor: pointer; transition: background 0.2s;';
+        if (index === 0) dot.style.background = '#196A25';
+        dot.onclick = () => showParkingImage(index);
+        parkingDotsContainer.appendChild(dot);
+    });
+    
+    console.log('Parking slider initialized with', parkingImages.length, 'images');
 });
 
 function showParkingImage(index) {
     if (index < 0 || index >= parkingImages.length) return;
+    
+    console.log('Showing parking image:', index, parkingImages[index]);
     
     currentParkingImageIndex = index;
     parkingSliderImg.src = parkingImages[index];
